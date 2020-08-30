@@ -8,12 +8,15 @@ from django.core.files.storage import FileSystemStorage
 from .forms import UploadDocumentForm
 from django.core.files.storage import FileSystemStorage
 import datetime
+from django import get_version
+from django.http import FileResponse
 
 g_number_of_visitor = 0
 g_number_of_file = 0
 is_same = False
 # Create your views here.
 def index(request):
+    print(get_version())
     global g_number_of_visitor, g_number_of_file
     g_number_of_visitor += 1
 
@@ -22,7 +25,9 @@ def index(request):
         g_number_of_file += 1
         myfile = request.FILES['inputFile']
         fs = FileSystemStorage(location=folder)
-        filename = fs.save(myfile.name, myfile)
+        fs.save(myfile.name, myfile)
+        filename = myfile.name
+        print(filename)
         # os.remove(media\my_folder\+filename, option)
         file_url = fs.url(filename)
         # uploadpath = " " + path + filename + " "
@@ -30,7 +35,6 @@ def index(request):
         # subprocess.call(["/usr/bin/dangerzone-container" " pixelstopdf --pixel-dir /tmp/dangerzone-pixel --safe-dir /tmp/dangerzone-safe --container-name flmcode/dangerzone --ocr 0 --ocr-lang eng"],shell=True)
         # os.rename("/tmp/dangerzone-safe/safe-output-compressed.pdf",
         #           "/tmp/dangerzone-safe/" + filename + "_" + "safe-output.pdf")
-        # sendfile(request, "/tmp/dangerzone-safe/" + filename + "_" + "safe-output.pdf", mimetype='application/pdf')
         return render(request, 'fileupload.html',{'file_url':file_url})
     else:
         return render(request, 'index.html')
