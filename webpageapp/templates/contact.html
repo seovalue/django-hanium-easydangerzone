@@ -20,28 +20,29 @@
     <h1 class="cover-heading">Contact</h1>
     <p class="lead">피드백이나 문의 사항은 아래에 남겨주십시오.</p>
     <p class="medium">If you leave any feedback below, We will check.</p>
-      <form action="mailto:mathmjseo@khu.ac.kr" method="post" enctype="text/plain">
+      <form name = "form" action="/sendmail/" method="post" enctype="text/plain" id="contact-form">
           <div class="input-group input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">성함/Name</span>
+                <span class="input-group-text" id="inputGroup-sizing-default" name="name">성함/Name</span>
               </div>
               <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-sm">
             </div>
 
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">이메일/Email</span>
+                <span class="input-group-text" id="inputGroup-sizing-default" name="email">이메일/Email</span>
               </div>
               <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
             </div>
           <div class="input-group">
               <div class="input-group-prepend">
-                <span class="input-group-text">내용/comment</span>
+                <span class="input-group-text" name="comment">내용/comment</span>
               </div>
               <textarea class="form-control" aria-label="With textarea"></textarea>
             </div>
           <br>
-          <button type="button" class="btn btn-dark btn-block" type="submit">전송/Submit</button>
+          <button type="submit" class="btn btn-dark btn-block">전송/Submit</button>
+{#          모든 내용이 채워졌을 때 전송되도록 #}
         </form>
   </main>
 

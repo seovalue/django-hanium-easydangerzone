@@ -24,16 +24,17 @@
       <p></p>
     <p class="lead">바이러스 없는, 안전한 파일로 바꿔드립니다.</p>
     <p class="medium">Upload files that you want to convert to safe.</p>
-    <form action = "/fileupload/" method="POST" enctype="multipart/form-data" novalidate>
+    <form action = "" method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
-        {{ form }}
         <div class="input-group">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputGroupFile04">
+            {{ form.upload_files }}
+            <input type="file" class="custom-file-input" id="inputGroupFile04" name="inputFile">
             <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
           </div>
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="submit">Submit</button>
+{#            <button class="btn btn-outline-secondary" type="submit">Submit</button>#}
+              <input type="submit" class="btn btn-dark" value="Submit"/>
           </div>
         </div>
       </form>

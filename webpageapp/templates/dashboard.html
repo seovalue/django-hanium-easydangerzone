@@ -2,6 +2,7 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/contact_cover.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 <body class = "text-center">
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -18,7 +19,10 @@
 
   <main role="main" class="inner cover">
     <h1 class="cover-heading">Dashboard</h1>
-    <p class="lead">방문자 추이 대시보드 개발 예정...</p>
+      <p class="small">대시보드는 시각화 그래프를 추가할 예정입니다.</p>
+    <p class="lead">오늘의 방문자 수: {{ cnt }}</p>
+      <p class="lead">파일 변환 횟수: {{ file_cnt }}</p>
+      <p class="small">방문자 수는 Home에 접속할 때마다 증가합니다.</p>
   </main>
 
   <footer class="mastfoot mt-auto">

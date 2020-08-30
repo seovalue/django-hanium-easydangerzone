@@ -27,4 +27,5 @@ urlpatterns = [
     path('contact/',webpageapp.views.contact, name='contact'),
     path('dashboard/',webpageapp.views.dashboard, name='dashboard'),
     path('fileupload/',webpageapp.views.fileupload, name='fileupload'),
+    path('sendmail/',webpageapp.views.sendmail, name='sendmail'),
 ]
