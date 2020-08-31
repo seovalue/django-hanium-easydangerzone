@@ -2,7 +2,6 @@ from django.shortcuts import render
 import os
 import subprocess
 from werkzeug.utils import secure_filename
-from sendfile import sendfile
 from django.http import HttpResponseRedirect
 from django.core.files.storage import FileSystemStorage
 from .forms import UploadDocumentForm

@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 <body class = "text-center">
-<input class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
   <header class="masthead mb-auto">
     <div class="inner">
       <h3 class="masthead-brand">EasyDangerzone</h3>
@@ -22,19 +22,18 @@
   <main role="main" class="inner cover">
     <h1 class="cover-heading">Dashboard</h1>
     <p class="lead">오늘의 방문자 수: {{ cnt }}</p>
-  </main>
       <div class="table-responsive">
         <h3>방문자 수</h3>
             <canvas id="visitor-chart" width="400"></canvas>
         <h3>파일 변환 수</h3>
             <canvas id="file-chart" width="400"></canvas>
       </div>
-        {#        장고 변수 전달용 태그#}
-        <input id="visitor_label" type="hidden" value="{{ visitor_label }}"></input>
-        <input id="visitor_data" type="hidden" value="{{ visitor_data }}"></input>
-        <input id="file_label" type="hidden" value="{{ file_label }}"></input>
-        <input id="file_data" type="hidden" value="{{ file_data }}"></input>
-    <script type="text/javascript", file_label = {{ file_label }}, file_data = {{ file_data }}>
+      <input id="visitor_label" type="hidden" value="{{ visitor_label }}"/>
+        <input id="visitor_data" type="hidden" value="{{ visitor_data }}"/>
+        <input id="file_label" type="hidden" value="{{ file_label }}"/>
+        <input id="file_data" type="hidden" value="{{ file_data }}"/>
+  </main>
+    <script type="text/javascript">
         var ctxOne = document.getElementById('visitor-chart');
         var visitor_label = document.getElementById('visitor_label').value;
         var visitor_data = document.getElementById('visitor_data').value;
