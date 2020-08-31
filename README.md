@@ -10,21 +10,8 @@
 *** github_username, repo_name, twitter_handle, email
 -->
 
-
-
-
-
-
-
-
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <h3 align="center">EasyDangerzone</h3>
-
-  <p align="center">
-    오픈소스인 dangerzone을 활용한, 안전한 파일로 변환시켜주는 웹사이트입니다.
-</p>
+# EasyDangerzone
+[EasyDangerzone Demo](http://ec2-52-78-218-146.ap-northeast-2.compute.amazonaws.com:5000/)
 
 
 
