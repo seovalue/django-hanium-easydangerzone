@@ -8,7 +8,7 @@ from .forms import UploadDocumentForm
 from django.core.files.storage import FileSystemStorage
 import datetime
 from django import get_version
-from django.http import FileResponse, HttpResponse
+from django.http import FileResponse, HttpResponse, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -46,34 +46,34 @@ def index(request):
         filename = myfile.name
         print("파일명", filename)
         file_url = fs.url(filename)
+        print('file_url: ',file_url)
         path = '/home/ubuntu/hanium-dangerzone-opensource/media/my_folder/'
         uploadpath = " " + path + filename + " "
         subprocess.call(["/usr/bin/dangerzone-container" " documenttopixels --document-filename" + uploadpath + "--pixel-dir /tmp/dangerzone-pixel --container-name flmcode/dangerzone"],shell=True)
         subprocess.call(["/usr/bin/dangerzone-container" " pixelstopdf --pixel-dir /tmp/dangerzone-pixel --safe-dir /tmp/dangerzone-safe --container-name flmcode/dangerzone --ocr 0 --ocr-lang eng"],shell=True)
-        # os.rename("/tmp/dangerzone-safe/safe-output-compressed.pdf",
-        #           "/tmp/dangerzone-safe/" + filename + "_" + "safe-output.pdf")
+        os.rename("/tmp/dangerzone-safe/safe-output-compressed.pdf",
+                  "/tmp/dangerzone-safe/" + filename + "_" + "safe-output.pdf")
         file_url = '/tmp/dangerzone-safe/safe-output-compressed.pdf'
         rm_file = 'media/my_folder/'+filename
         if os.path.isfile(rm_file):
             os.remove(rm_file)
             print(rm_file,"is deleted")
-        return render(request, 'fileupload.html')
+        # return render(request, 'fileupload.html', {'file_url': file_url})
+        fn = 'sample.pdf'
+        return pdf_view(request,fn)
     else:
         return render(request, 'index.html')
 
-    #
-    # form = UploadDocumentForm()
-    # if request.method == 'POST':
-    #     file = request.FILES
-    #     file_name = default_storage.save(file['inputFile'], file)
-    #     form = request.FILES  # Do not forget to add: request.FILES
-    #     print(form)
-    #     # if form.is_valid():
-    #     #     # Do something with our files or simply save them
-    #     #     # if saved, our files would be located in media/ folder under the project's base folder
-    #     #     file = form.save(commit=False)
-    #     #     return HttpResponseRedirect('/fileupload')
-    # return render(request, 'index.html',{'form':form})
+def pdf_view(request, fn):
+    fs = FileSystemStorage()
+    filename = 'my_folder/' + fn
+    if fs.exists(filename):
+        with fs.open(filename) as pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="safe.pdf"'
+            return response
+    else:
+        return HttpResponseNotFound('Not Found!!!')
 
 @csrf_exempt
 def contact(request):
@@ -84,7 +84,7 @@ def dashboard(request):
     total_num_of_file_label = list(g_number_of_file.keys())
     total_num_of_visitor = list(g_number_of_visitor.values())
     total_num_of_file = list(g_number_of_file.values())
-
+    print(total_num_of_file,total_num_of_visitor)
     return render(request, 'dashboard.html',{'cnt':g_number_of_visitor[date],
                                              'file_cnt': g_number_of_file[date],
                                              'visitor_data':total_num_of_visitor,

@@ -24,6 +24,7 @@
       <p></p>
     <p class="lead">바이러스 없는, 안전한 파일로 바꿔드립니다.</p>
     <p class="medium">Upload files that you want to convert to safe.</p>
+
     <form action = "" method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         <div class="input-group">
@@ -38,7 +39,7 @@
           </div>
         </div>
       </form>
-
+        <p class="small">변환 가능 확장자: pdf, docx, doc, xlsx, xls, pptx, ppt, odt, ods, odp, jpg, jpeg, png, gif, tif, tiff</p>
       <a class="id_uploaded_file" href="{ uploadFileModel.file }" download></a>
       <script type="application/javascript">
         $('input[type="file"]').change(function(e){
