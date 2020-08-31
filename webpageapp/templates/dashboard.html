@@ -2,6 +2,8 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/contact_cover.css' %}">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 <body class = "text-center">
@@ -19,12 +21,116 @@
 
   <main role="main" class="inner cover">
     <h1 class="cover-heading">Dashboard</h1>
-      <p class="small">대시보드는 시각화 그래프를 추가할 예정입니다.</p>
     <p class="lead">오늘의 방문자 수: {{ cnt }}</p>
-      <p class="lead">파일 변환 횟수: {{ file_cnt }}</p>
-      <p class="small">방문자 수는 Home에 접속할 때마다 증가합니다.</p>
   </main>
+      <div class="table-responsive">
+        <h3>방문자 수</h3>
+            <canvas id="visitor-chart" width="400"></canvas>
+        <h3>파일 변환 수</h3>
+            <canvas id="file-chart" width="400"></canvas>
+      </div>
+        <input id="file_label" type="hidden" value="{{ file_label }}"></input>
+        <input id="file_data" type="hidden" value="{{ file_data }}"></input>
+    <script type="text/javascript", file_label = {{ file_label }}, file_data = {{ file_data }}>
+        var ctxOne = document.getElementById('visitor-chart');
+        var myChart1 = new Chart(ctxOne, {
+            type: 'bar',
+            data: {
+                labels: ['8-30', '8-31'],
+                datasets: [{
+                    label: '# of visitors',
+                    data: [23,10],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+            }
+        });
 
+        var ctxTwo = document.getElementById('file-chart');
+        var file_label = document.getElementById('file_label').value;
+        var file_data = document.getElementById('file_data').value;
+
+        var file_label_array = new Array();
+        var file_data_array = new Array();
+        var tmp = "";
+        for(var i = 1; i < file_label.length - 1; i++){
+            if (file_label[i] != ',' && file_label[i] != "'"){
+                tmp += file_label[i]
+            }
+            else if(file_label[i] == ',' || i == file_label.length-2){
+                file_label_array.push(tmp);
+                tmp = '';
+            }
+        }
+        for(var i = 1; i < file_data.length - 1; i++){
+            if (file_data[i] !== ','){
+                file_data_array.push(file_data[i] *= 1)
+            }
+        }
+
+        var myChart2 = new Chart(ctxTwo, {
+            type: 'line',
+            data: {
+                labels: file_label_array,
+                datasets: [{
+                    label: '# of Converted Files',
+                    data: file_data_array,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+            }
+        });
+    </script>
   <footer class="mastfoot mt-auto">
     <div class="inner">
       <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>

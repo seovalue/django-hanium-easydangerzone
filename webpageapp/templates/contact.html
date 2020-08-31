@@ -20,7 +20,8 @@
     <h1 class="cover-heading">Contact</h1>
     <p class="lead">피드백이나 문의 사항은 아래에 남겨주십시오.</p>
     <p class="medium">If you leave any feedback below, We will check.</p>
-      <form name = "form" action="/sendmail/" method="post" enctype="text/plain" id="contact-form">
+      <form name = "form" action="/sendmail/" method="post" enctype="text/plain" id="contact-form" novalidate>
+          {% csrf_token %}
           <div class="input-group input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default" name="name">성함/Name</span>
