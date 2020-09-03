@@ -41,6 +41,19 @@ def index(request):
 
         myfile = request.FILES['inputFile']
 
+        fn_rm = 'media/my_folder/safe-output-compressed.pdf'
+        if os.path.isfile(fn_rm):
+            os.remove(fn_rm)
+            print('existed file is deleted')
+
+        filelist = list()
+        mydir = '/tmp/dangerzone-pixel'
+        for f in os.listdir(mydir):
+            if f.endswith(".height") or f.endswith(".rgb") or f.endswith(".width"):
+                filelist.append(f)
+        for f in filelist:
+            os.remove(os.path.join(mydir, f))
+
         fs = FileSystemStorage(location=folder)
         fs.save(myfile.name, myfile)
         filename = myfile.name
@@ -51,8 +64,8 @@ def index(request):
         uploadpath = " " + path + filename + " "
         subprocess.call(["/usr/bin/dangerzone-container" " documenttopixels --document-filename" + uploadpath + "--pixel-dir /tmp/dangerzone-pixel --container-name flmcode/dangerzone"],shell=True)
         subprocess.call(["/usr/bin/dangerzone-container" " pixelstopdf --pixel-dir /tmp/dangerzone-pixel --safe-dir /tmp/dangerzone-safe --container-name flmcode/dangerzone --ocr 0 --ocr-lang eng"],shell=True)
-        os.rename("/tmp/dangerzone-safe/safe-output-compressed.pdf",
-                  "/tmp/dangerzone-safe/" + filename + "_" + "safe-output.pdf")
+        #os.rename("/tmp/dangerzone-safe/safe-output-compressed.pdf",
+                  # "/tmp/dangerzone-safe/" + filename + "_" + "safe-output.pdf")
         file_url = '/tmp/dangerzone-safe/safe-output-compressed.pdf'
         dest_url = path + 'safe-output-compressed.pdf'
         shutil.move(file_url, dest_url)
