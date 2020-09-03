@@ -1,5 +1,5 @@
 from django.shortcuts import render
-import os
+import os, shutil
 import subprocess
 from werkzeug.utils import secure_filename
 from django.http import HttpResponseRedirect
@@ -54,12 +54,14 @@ def index(request):
         os.rename("/tmp/dangerzone-safe/safe-output-compressed.pdf",
                   "/tmp/dangerzone-safe/" + filename + "_" + "safe-output.pdf")
         file_url = '/tmp/dangerzone-safe/safe-output-compressed.pdf'
+        dest_url = path + 'safe-output-compressed.pdf'
+        shutil.move(file_url, dest_url)
         rm_file = 'media/my_folder/'+filename
         if os.path.isfile(rm_file):
             os.remove(rm_file)
             print(rm_file,"is deleted")
         # return render(request, 'fileupload.html', {'file_url': file_url})
-        fn = 'sample.pdf'
+        fn = 'safe-output-compressed.pdf'
         return pdf_view(request,fn)
     else:
         return render(request, 'index.html')
