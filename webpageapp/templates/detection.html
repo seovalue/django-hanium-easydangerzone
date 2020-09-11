@@ -1,7 +1,7 @@
 {% load static %}
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/uploadfile_cover.css' %}">
+    <link rel="stylesheet" href="{% static 'css/detection.css' %}">
     <link rel="icon" href="{% static 'www/favicon.ico' %}">
 </head>
 <body class = "text-center">
@@ -18,8 +18,29 @@
   </header>
 
   <main role="main" class="inner cover">
-    <h1 class="cover-heading">Done</h1>
-    <p class="lead">메일 전송이 완료되었습니다. 피드백 감사합니다.</p>
+  <br>
+    <h1 class="cover-heading">Detection Board</h1>
+    <p class="lead">바이러스 토탈 API를 사용하여 악성코드를 감지한 내역입니다.</p>
+    <p class="medium">안전하게 변환된 파일은 아래 버튼을 클릭하면 다운로드됩니다.</p>
+    <button type="button" class="btn btn-dark" onclick="location.href='filedownload/'">안전한 파일 다운로드</button>
+    <br>
+    <br>
+    <table class="table table-striped table-dark" width ="100%">
+        <thead >
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Detection</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for name,detection in data%}
+            <tr>
+                <td>{{ name }}</td>
+                <td>{{ detection}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
   </main>
 
   <footer class="mastfoot mt-auto">
