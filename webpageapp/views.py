@@ -3,13 +3,13 @@ import os, shutil, subprocess, requests, datetime, json
 from werkzeug.utils import secure_filename
 from django.http import HttpResponseRedirect,FileResponse, HttpResponse, HttpResponseNotFound
 from django.core.files.storage import FileSystemStorage
-from .forms import UploadDocumentForm
 from django.core.files.storage import FileSystemStorage
 from django import get_version
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 API_KEY = getattr(settings, 'API_KEY')
+WEBHOOK_URL = getattr(settings,'WEBHOOK_URL')
 
 
 # 첫번째로 서버 실행 시 file에 저장된 값을 불러오기(initialize)
@@ -129,7 +129,7 @@ def pdf_view(request):
 
 @csrf_exempt
 def contact(request):
-    return render(request, 'contact.html')
+    return render(request, 'contact.html',{'webhook_url':WEBHOOK_URL})
 
 def dashboard(request):
     date = str(datetime.date.today().month) + '-' + str(datetime.date.today().day)

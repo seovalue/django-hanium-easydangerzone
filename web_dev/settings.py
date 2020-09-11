@@ -35,6 +35,7 @@ def get_secret(setting, secrets=secrets):
 
 SECRET_KEY = get_secret("SECRET_KEY")
 API_KEY = get_secret("API_KEY")
+WEBHOOK_URL = get_secret("WEBHOOK_URL")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
