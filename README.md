@@ -1,42 +1,16 @@
-<!--
-*** Thanks for checking out this README Template. If you have a suggestion that would
-*** make this better, please fork the repo and create a pull request or simply open
-*** an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
-***
-***
-***
-*** To avoid retyping too much info. Do a search and replace for the following:
-*** github_username, repo_name, twitter_handle, email
--->
-
 # EasyDangerzone
-[EasyDangerzone Demo 접속하기](http://ec2-52-78-218-146.ap-northeast-2.compute.amazonaws.com:5000/)
+[EasyDangerzone 접속하기](http://ec2-52-78-218-146.ap-northeast-2.compute.amazonaws.com:5000/)
 
-# update 09.02  
+# UPDATE LIST
+
+### ~9.2
 * 파일 업로드 시, 첫번째로 2page 파일, 두번째로 1page 파일을 업로드 하면 첫번째 파일의 두번째 페이지가 같이 merge되서 나오는 오류를 발견함 --> dangerzone-pixel 내부의 width, height, rgb를 매번 변환 시 지우고 새로 업데이트하도록 변경  
 * 지원 불가능한 확장자를 업로드하여 실행하면 내부에서 에러를 발생시켜 페이지 자체에 에러가 보여지는 오류 --> 확장자에 대한 조건을 걸어 지원 불가능한 확장자 파일을 선택 시 불가능하다는 alert를 띄우도록 변경
 
-# todo
-* 방문자 수 및 다운로드 수 db에 연동하여 동적으로 업데이트 되도록 변경해야함. 현재는 기록을 바탕으로 하드 코딩 되어있음.  
-* contact를 통해 전송 시 특정 메일로 보내진다던지, 대상을 결정해야함. 슬랙을 연동한다면 어떤 식으로 연동할 것인지. 
-
-<!-- TABLE OF CONTENTS -->
-## Table of Contents
-
-* [About the Project](#about-the-project)
-  * [Built With](#built-with)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Usage](#usage)
-* [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contact](#contact)
-* [Acknowledgements](#acknowledgements)
-
-
+### ~9.10
+* virustotal api json to table  
+* link contact page to slack   
+* modify handling file about dashboard   
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project

@@ -28,4 +28,6 @@ urlpatterns = [
     path('dashboard/',webpageapp.views.dashboard, name='dashboard'),
     path('fileupload/',webpageapp.views.fileupload, name='fileupload'),
     path('sendmail/',webpageapp.views.sendmail, name='sendmail'),
+    path('detection/', webpageapp.views.detection, name='detection'),
+    path('filedownload/',webpageapp.views.pdf_view, name='filedownload'),
 ]
