@@ -3,6 +3,7 @@ import os, shutil, subprocess, requests, datetime, json
 from werkzeug.utils import secure_filename
 from django.http import HttpResponseRedirect,FileResponse, HttpResponse, HttpResponseNotFound
 from django.core.files.storage import FileSystemStorage
+from .forms import UploadDocumentForm
 from django.core.files.storage import FileSystemStorage
 from django import get_version
 from django.urls import reverse
@@ -123,9 +124,14 @@ def pdf_view(request):
         with fs.open(filename) as pdf:
             response = HttpResponse(pdf, content_type='application/pdf')
             response['Content-Disposition'] = 'attachment; filename="safe.pdf"'
+            
+            fn = 'media/my_folder/safe-output-compressed.pdf'
+            if os.path.isfile(fn):
+                os.remove(fn)
+            
             return response
     else:
-        return HttpResponseNotFound('Not Found!!!')
+        return HttpResponseRedirect(reverse('index'))
 
 @csrf_exempt
 def contact(request):

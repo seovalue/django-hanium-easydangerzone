@@ -12,6 +12,9 @@
 * link contact page to slack   
 * modify handling file about dashboard   
 
+### ~9.16
+* /filedownload 로 접근 시 이전에 변환된 파일을 다운로드 및 확인할 수 있는 보안상 문제 발생 -> 1회 다운로드로 제한 및 1회 다운로드 후 파일 삭제되도록 변경, 해당 경로로 접근 시 index 페이지로 redirect 되도록 설정
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 사용한 오픈소스 프로젝트: [dangerzone](https://github.com/firstlookmedia/dangerzone)  

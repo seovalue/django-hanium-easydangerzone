@@ -45,7 +45,6 @@
           <br>
           <button onclick ="submitForm()" class="btn btn-dark btn-block">전송/Submit</button>
 	   <input id="key" type="hidden" value="{{ key }}"/>
-          <input id="url" type="hidden" value="{{ webhook_url }}"/>
 {#          모든 내용이 채워졌을 때 전송되도록 #}
         </form>
   </main>
@@ -57,7 +56,7 @@
                     var Email = document.getElementById("Email").value;
                     var Content = document.getElementById("Comment").value;
                     var xhr = new XMLHttpRequest();
-		            var Key = document.getElementById("key").value;
+		    var Key = document.getElementById("key").value;
                     xhr.open("POST", Key , true);
         //Send the proper header information along with the request
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
