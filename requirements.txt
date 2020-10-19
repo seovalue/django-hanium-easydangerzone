@@ -1,5 +1,11 @@
 asgiref==3.2.10
-Django==3.1
+certifi==2020.6.20
+chardet==3.0.4
+Django==3.1.2
+idna==2.10
+mysqlclient @ file:///C:/Users/mgmgj/Downloads/mysqlclient-1.4.6-cp38-cp38-win32.whl
 pytz==2020.1
-sqlparse==0.3.1
+requests==2.24.0
+sqlparse==0.4.1
+urllib3==1.25.10
 Werkzeug==1.0.1

@@ -2,6 +2,10 @@
 [EasyDangerzone 접속하기](http://ec2-52-78-218-146.ap-northeast-2.compute.amazonaws.com:5000/)
 
 # UPDATE LIST
+### ~10.19
+* urlhash 이용 md5 해시키로 악성파일인지 확인
+* MySQL DB 연동
+* 폴더 구조 전면 수정 및 MVC 패턴 
 
 ### ~9.2
 * 파일 업로드 시, 첫번째로 2page 파일, 두번째로 1page 파일을 업로드 하면 첫번째 파일의 두번째 페이지가 같이 merge되서 나오는 오류를 발견함 --> dangerzone-pixel 내부의 width, height, rgb를 매번 변환 시 지우고 새로 업데이트하도록 변경  
