@@ -1,0 +1,221 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'siteapp/css/contact_cover.css' %}">
+    <link rel="icon" href="{% static 'www/favicon.ico' %}">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+<body class = "text-center">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">EasyDangerzone</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link active" href="/dashboard">Dashboard</a>
+        <a class="nav-link" href="/contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading">Dashboard</h1>
+    <p class="lead">오늘의 방문자 수: {{ cnt }}</p>
+      <div class="table-responsive">
+        <h3>방문자 수</h3>
+            <canvas id="visitor-chart" width="400"></canvas>
+        <h3>누적 파일 변환 수</h3>
+            <canvas id="file-chart" width="400"></canvas>
+      </div>
+      <input id="visitor_label" type="hidden" value="{{ visitor_label }}"/>
+        <input id="visitor_data" type="hidden" value="{{ visitor_data }}"/>
+        <input id="file_label" type="hidden" value="{{ file_label }}"/>
+        <input id="file_data" type="hidden" value="{{ file_data }}"/>
+  </main>
+    <script type="text/javascript">
+        var ctxOne = document.getElementById('visitor-chart');
+        var visitor_label = document.getElementById('visitor_label').value;
+        var visitor_data = document.getElementById('visitor_data').value;
+
+        var visitor_label_array = new Array();
+        var visitor_data_array = new Array();
+        var tmp = "";
+        for(var i = 1; i < visitor_label.length - 1; i++){
+            if (visitor_label[i] != ',' && visitor_label[i] != "'"){
+                tmp += visitor_label[i]
+            }
+            else if(visitor_label[i] == ',' || i == visitor_label.length-2){
+                visitor_label_array.push(tmp);
+                tmp = '';
+            }
+        }
+        tmp = '';
+        for(var i = 1; i < visitor_data.length - 1; i++){
+            if (visitor_data[i] != ','){
+                tmp += visitor_data[i]
+            }
+            else if(visitor_data[i] == ',') {
+                visitor_data_array.push(tmp *= 1);
+                tmp = '';
+            }
+        }
+        if (tmp.length != 0){
+            visitor_data_array.push(tmp*=1);
+            tmp = '';
+        }
+
+        var myChart1 = new Chart(ctxOne, {
+            type: 'bar',
+            data: {
+                labels: visitor_label_array,
+                datasets: [{
+                    label: '# of visitors',
+                    data: visitor_data_array,
+                    backgroundColor: [
+			    'rgba(255, 99, 132, 0.2)',
+			    'rgba(54, 162, 235, 0.2)',
+			    'rgba(255, 206, 86, 0.2)',
+			    'rgba(75, 192, 192, 0.2)',
+			    'rgba(153, 102, 255, 0.2)',
+			    'rgba(255, 159, 64, 0.2)',
+			    'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+			    'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)'
+		    ],
+                    borderColor: [
+			    'rgba(255, 99, 132, 1)',
+			    'rgba(54, 162, 235, 1)',
+			    'rgba(255, 206, 86, 1)',
+			    'rgba(75, 192, 192, 1)',
+			    'rgba(153, 102, 255, 1)',
+			    'rgba(255, 159, 64, 1)',
+			    'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+			    'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+            }
+        });
+
+        var ctxTwo = document.getElementById('file-chart');
+        var file_label = document.getElementById('file_label').value;
+        var file_data = document.getElementById('file_data').value;
+
+        var file_label_array = new Array();
+        var file_data_array = new Array();
+        var tmp = "";
+        for(var i = 1; i < file_label.length - 1; i++){
+            if (file_label[i] != ',' && file_label[i] != "'"){
+                tmp += file_label[i]
+            }
+            else if(file_label[i] == ',' || i == file_label.length-2){
+                file_label_array.push(tmp);
+                tmp = '';
+            }
+        }
+        tmp = '';
+        for(var i = 1; i < file_data.length - 1; i++){
+            if (file_data[i] != ','){
+                tmp += file_data[i]
+            }
+            else if(file_data[i] == ',') {
+                file_data_array.push(tmp *= 1);
+                tmp = '';
+            }
+        }
+        if (tmp.length != 0){
+            file_data_array.push(tmp*=1);
+            tmp = '';
+        }
+
+        var myChart2 = new Chart(ctxTwo, {
+            type: 'line',
+            data: {
+                labels: file_label_array,
+                datasets: [{
+                    label: '# of Converted Files',
+                    data: file_data_array,
+                    backgroundColor: [
+			    'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)'
+
+                    ],
+                    borderColor:[
+			    'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+            }
+        });
+    </script>
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    </div>
+  </footer>
+</div>
+</body>

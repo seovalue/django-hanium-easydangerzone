@@ -1,0 +1,101 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'siteapp/css/contact_cover.css' %}">
+    <link rel="icon" href="{% static 'www/favicon.ico' %}">
+</head>
+<body class = "text-center">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">EasyDangerzone</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/dashboard">Dashboard</a>
+        <a class="nav-link active" href="/contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading">Contact</h1>
+    <p class="lead">피드백이나 문의 사항은 아래에 남겨주십시오.</p>
+    <p class="medium">If you leave any feedback below, We will check.</p>
+      <form name = "form"  enctype="text/plain" method = "POST" id="contact-form" novalidate>
+          {% csrf_token %}
+          <div class="input-group input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default" name="name">성함/Name</span>
+              </div>
+              <input name = "Name" id = "Name" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-sm">
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default" name="email">이메일/Email</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name = "Email" id = "Email">
+            </div>
+          <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" name="comment">내용/comment</span>
+              </div>
+              <textarea class="form-control" name = "Comment" id = "Comment" aria-label="With textarea"></textarea>
+            </div>
+          <br>
+          <button onclick ="submitForm()" class="btn btn-dark btn-block">전송/Submit</button>
+	   <input id="key" type="hidden" value="{{ key }}"/>
+{#          모든 내용이 채워졌을 때 전송되도록 #}
+        </form>
+  </main>
+
+  <script>
+            function submitForm() {
+		    console.log("Run");
+                    var Name = document.getElementById("Name").value;
+                    var Email = document.getElementById("Email").value;
+                    var Content = document.getElementById("Comment").value;
+                    var xhr = new XMLHttpRequest();
+		    var Key = document.getElementById("key").value;
+                    xhr.open("POST", Key , true);
+        //Send the proper header information along with the request
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function() { // Call a function when the state changes.
+                            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                                    // Request finished. Do processing here.
+                            }
+                    }
+                    var payload = {
+                            "text" : "From ED",
+                            "blocks" : [
+                                    {
+                                            "type":"section",
+                                            "text":{
+                                                    "type":"mrkdwn",
+                                                    "text":"From ED:"
+                                            }
+                                    },
+                                    {
+                                            "type":"section",
+                                            "block_id":"section123",
+                                            "fields":[
+                                                    {
+                                                            "type":"mrkdwn",
+                                                            "text":"*1. Name*\n"+ Name + "\n\n*2. Email*\n" + Email +"\n\n*3. Comment*\n" + Content + "\n\n"
+                                                    }
+                                                    ]
+                                    }
+                                    ]
+                    };
+                    xhr.send( JSON.stringify(payload));
+		    alert("전송되었습니다. 감사합니다.");
+	    }
+    </script>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    </div>
+  </footer>
+</div>
+</body>
