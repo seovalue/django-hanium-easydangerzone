@@ -1,0 +1,63 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'siteapp/css/detection.css' %}">
+    <link rel="icon" href="{% static 'www/favicon.ico' %}">
+</head>
+<body class = "text-center">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">EasyDangerzone</h3>
+        <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/dashboard">Dashboard</a>
+        <a class="nav-link" href="/contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" class="inner cover">
+  <br>
+    <h1 class="cover-heading">Detection Board</h1>
+    <p class="lead">바이러스 토탈 API를 사용하여 악성코드를 감지한 내역입니다.</p>
+    <p class="medium">안전하게 변환된 파일은 아래 버튼을 클릭하면 다운로드됩니다.</p>
+    <p class="small">파일은 보안 상 1회 다운로드 가능합니다.</p>
+    <button type="button" class="btn btn-dark" onclick="location.href='filedownload/'">안전한 파일 다운로드</button>
+    <br>
+    <br>
+    <table class="table table-striped table-dark" width ="100%">
+        <thead >
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Detection</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for name,detection in data%}
+            <tr>
+                <td>{{ name }}</td>
+                <td>{{ detection}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <input id="hash" type="hidden" value="{{ hash }}"/>
+    <script type="application/javascript">
+        var hash = document.getElementById('hash').value;
+        if (hash == "detected"){
+            alert("URLhaus를 이용한 검사 결과, 악성코드가 탐지되었습니다😮");
+        } else{
+            alert("URLhaus를 이용한 검사 결과, 악성코드가 발견되지 않았습니다👌");
+        }
+    </script>
+  </main>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+    </div>
+  </footer>
+</div>
+</body>
